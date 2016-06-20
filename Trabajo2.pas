@@ -387,7 +387,7 @@ LocaAnt:Cad50;
 	Begin
 	Write(ArTotCli, ProvAnt);
 	for i:=1 to (tamProvLoca - length(ProvAnt)) do
-		write(' ');
+		write(ArTotCli,' ');
 	Writeln(ArTotCli, ContProv);
 	ContProv:=0;
 	ProvAnt:=Clientes.Provincia;
@@ -400,7 +400,7 @@ LocaAnt:Cad50;
 	Begin
 	Write(ArTotCli, LocaAnt);
 	for i:=1 to (tamProvLoca - length(LocaAnt)) do
-		write(' ');
+		write(ArTotCli,' ');
 	Writeln(ArTotCli, ContLoca);
 	ContLoca:=0;
 	LocaAnt:=Clientes.Localidad;
