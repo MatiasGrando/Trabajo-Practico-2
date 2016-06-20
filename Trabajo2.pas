@@ -44,6 +44,8 @@ ArVentas:taVentas;{aprox 8000 Está ordenado en forma ascendente por Sucursal y 
 ArVentasHistorico:taVentasHistorico;
 
 
+
+
 {----------------------------------------Modulos----------------------------------------------------}
 
 procedure LeerVentasHistorico (var ar:taVentasHistorico; var rec:trVentasHistorico; var fin:boolean);
@@ -303,15 +305,54 @@ Begin
 	Merge(arTransformarVentas,arVentasHistorico,ArHistoricoAux);
 	ActualizoHistorico(arVentasHistorico,arHistoricoAux);
 end;
+{-----------------------------------------------4--------------------------------------------------------------------------------) 
+actualizar el archivo SucMundo.dat
+ insertando las sucursales argentinas. El archivo tiene el mismo formato de registro que el archivo SucursalesArg.
+ El archivo actualizado debe quedar con el mismo orden que sucmundo
 
+Asimo que archsucarg esta ordenado por num de suc, y que el arch suc mundo tmb, al hacer la carga de sucursales argentinas, el nº seria N+1 donde
+N es el num de suc del ultimo registro del arch suc mun}
+Procedure LecturaAdelantada(var Archivo:taSucursal;var Registro:trSucursal ;var Fin:boolean);
+	
+	Begin
+		Fin:=(EOF(Archivo));
+		if not fin then  read (Archivo,Registro);
+	End;
+	
+Procedure ActualizarArchSucMun;
 
+	 Var 
+	 	RegSucMun,RegSucArg:trSucursal;
+	 	Fin:boolean;
+	 	ArchSucMun,ArchSucArg: taSucursal;
+
+	 Begin
+	 	assing(archSucMun,'c:\SucMun.dat');
+	 	assing(ArchSucArg,'c\SucursalesArg.dat');
+		reset(ArchSucArg);
+		rewrite(archSucMun);
+
+		while not (eof(archSucMun)) do
+			Begin
+				read(archSucMun,RegSucMun)
+			end;
+		leer(ArchSucArg,RegSucArg,Fin);
+		while not fin do 
+			Begin
+				write(archSucMun,RegSucArg);
+				leer(ArchSucArg,RegSucArg,Fin)
+			end;
+		close(archSucMun);
+		close(archSucArg);
 
 {-----------------------------------Programa Principal----------------------------------------------}
 begin
-	Assign(ArSuc,'C:/SucursalesArg.dat');
-	Assign(ArVentas,'C:/VentasArg2015.dat');
-	Assign(ArVentasHistorico,'C:/VentasHistoricas.dat');
+	Assign(ArSuc,'C:\SucursalesArg.dat');
+	Assign(ArVentas,'C:\VentasArg2015.dat');
+	Assign(ArVentasHistorico,'C:\VentasHistoricas.dat');
+	assing(archSucMun,'c:\SucMun.dat');
 	MostrarTabla(ArVentas,ArSuc);
 	Actualizar(ArVentasHistorico,ArVentas);
+	ActualizarArchSucMun;
 	readln();
 end.
