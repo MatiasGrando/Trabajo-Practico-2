@@ -4,7 +4,7 @@ Type
 
 	cantArch= (VentasHistorico,SucursalesArg,Clientes,Ventas);
 	trVentasHistorico= record
-		Anio:byte;
+		Anio:word;
 		Mes:byte;
 		Num_Sucursal:word;
 		Importe:real;
@@ -48,9 +48,9 @@ Var
 {------------------Modulos------------------------}
 
 procedure CargarVentas(var arch:taVentas; var vec:tvCargados);
-	
+
 	var
-	
+
 	auxreg:trVentas;
 	opcion:byte;
 		aNum_Cliente:word;
@@ -58,9 +58,9 @@ procedure CargarVentas(var arch:taVentas; var vec:tvCargados);
 		aArticulo:longword;
 		aCantidad:word;
 		aImporte:real;
-	
+
 	begin
-	
+
 	rewrite(arch);
 	writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
 	readln(opcion);
@@ -71,7 +71,7 @@ procedure CargarVentas(var arch:taVentas; var vec:tvCargados);
 		readln(aNum_Cliente);
 		writeln('Ingrese Sucursal');
 		readln(aSucursal);
-		writeln('Ingrese Articulo');
+		writeln('Ingrese Articulo (codigo)');
 		readln(aArticulo);
 		writeln('Ingrese Cantidad');
 		readln(aCantidad);
@@ -93,19 +93,19 @@ procedure CargarVentas(var arch:taVentas; var vec:tvCargados);
 	end;
 
 procedure CargarClientes(var arch:taClientes; var vec:tvCargados);
-	
+
 	var
-	
+
 	auxreg:trClientes;
-	opcion:byte;
+	        opcion:byte;
 		aNum_Cliente:word;
 		aNombre:string[30];
 		aProvincia:string[50];
 		aLocalidad:string[50];
 		aDireccion:string[50];
-	
+
 	begin
-	
+
 	rewrite(arch);
 	writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
 	readln(opcion);
@@ -138,22 +138,22 @@ procedure CargarClientes(var arch:taClientes; var vec:tvCargados);
 	end;
 
 procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
-	
+
 	var
-	
+
 	ArchSucMun:taSucursalesArg;
 	NumeroUltimaSuc:word;
 	RegSucMun:trSucursalesArg;
 	auxreg:trSucursalesArg;
 	opcion:byte;
-		aNum_Sucursal:word;
-		aNombre:string[30];
-		aPais:string[50];
-		aDireccion:string[50];
-		aTelefono:string[20];
-	
+	aNum_Sucursal:word;
+	aNombre:string[30];
+	aPais:string[50];
+        aDireccion:string[50];
+	aTelefono:string[20];
+
 	begin
-	
+
 	assign(ArchSucMun,'C:\TP\archsucmun.dat');
 	reset(archSucMun);
 	while not eof(archSucMun) do
@@ -193,19 +193,19 @@ procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
 
 
 procedure CargarVentasHist(var arch:taVentasHist; var vec:tvCargados);
-	
+
 	var
-	
+
 	auxreg:trVentasHistorico;
 	opcion:byte;
 	{variables dentro del registro (auxiliares)}
-		aAnio:byte;
+		aAnio:word;
 		aMes:byte;
 		aNum_Sucursal:word;
 		aImporte:real;
-	
+
 	begin
-	
+
 	rewrite(arch);
 	writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
 	readln(opcion);
@@ -279,7 +279,7 @@ procedure inivec(vec:tvCargados);
 
 var
 
-i:cantArch;	
+i:cantArch;
 
 	begin
 	for i:=VentasHistorico to Ventas do
@@ -312,4 +312,3 @@ begin
 		end;
 		until opcion = 0;
 end.
-
