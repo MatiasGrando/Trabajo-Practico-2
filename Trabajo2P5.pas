@@ -1,3 +1,6 @@
+
+
+
 program CargarArchivos;
 
 Type
@@ -8,7 +11,7 @@ Type
 		Num_Sucursal:word;
 		Importe:real;
 	end;
-	trSucursalesArg= record 
+	trSucursalesArg= record
 		Num_Sucursal:word;
 		Nombre:string[30];
 		Pais:string[50];
@@ -80,6 +83,7 @@ procedure CargarVentas(var arch:taVentas; var vec:tvCargados);
 		end;
 		write(arch,auxreg);
 		writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
+		readln(opcion);
 	end;
 	close(arch);
 	end;
@@ -121,6 +125,7 @@ procedure CargarClientes(var arch:taClientes; var vec:tvCargados);
 		end;
 		write(arch,auxreg);
 		writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
+		readln(opcion);
 	end;
 	close(arch);
 	end;
@@ -128,6 +133,7 @@ procedure CargarClientes(var arch:taClientes; var vec:tvCargados);
 procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
 	var
 	ArchSucMundo:taSucursalesArg;
+	NumeroUltimaSuc:word;
 	RegSucMundo:trSucursalesArg;
 	auxreg:trSucursalesArg;
 	opcion:byte;
@@ -139,11 +145,12 @@ procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
 		aTelefono:string[20];
 	begin
 	assign(ArchSucMundo,'c:\SucMundo.dat');
-	reset(SucMundo);
+	reset(archSucMundo);
 	while not eof do
 		begin
-			readln(ArchSucMundo,RegSucMundo)
-		end;
+			read(ArchSucMundo,RegSucMundo)
+
+                		end;
 	NumeroUltimaSuc:= RegSucMundo.Num_Sucursal ;
 	close(ArchSucMundo);
 	rewrite(arch);
@@ -175,6 +182,7 @@ procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
 		end;
 		write(arch,auxreg);
 		writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
+		readln(opcion);
 	end;
 	close(arch);
 	end;
@@ -212,6 +220,7 @@ procedure CargarVentasHist(var arch:taVentasHist; var vec:tvCargados);
 		end;
 		write(arch,auxreg);
 		writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
+		readln(opcion);
 	end;
 	close(arch);
 	end;
@@ -284,7 +293,3 @@ begin
 		end;
 		until opcion = 0;
 end.
-
-
-
-
