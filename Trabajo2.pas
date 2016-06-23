@@ -98,7 +98,7 @@ Suc:trSucursal;
 		vMes[i]:= 0;
 	LeerVentas(ArV,Ven,fin);
 	write(Suc.Nombre);
-	for i:=1 to (length(Suc.Nombre)-tamNombre) do
+	for i:=1 to (tamNombre  - length(Suc.Nombre)) do
 	write(' ');
 	while not fin and (Ven.Sucursal = Suc.Num_Suc) do
 	begin
@@ -312,12 +312,12 @@ actualizar el archivo SucMundo.dat
 Asimo que archsucarg esta ordenado por num de suc, y que el arch suc mundo tmb, al hacer la carga de sucursales argentinas, el nº seria N+1 donde
 N es el num de suc del ultimo registro del arch suc mun}
 Procedure LecturaAdelantada(var Archivo:taSucursal;var Registro:trSucursal ;var Fin:boolean);
-
+	
 	Begin
 		Fin:=(EOF(Archivo));
 		if not fin then  read (Archivo,Registro);
 	End;
-
+	
 Procedure ActualizarArchSucMun;
 
 	 Var
@@ -343,7 +343,8 @@ Procedure ActualizarArchSucMun;
 			end;
 		close(archSucMun);
 		close(archSucArg);
-        end;
+                            end;
+
 {-----------------------------------Programa Principal----------------------------------------------}
 begin
 	Assign(ArSuc,'C:\SucursalesArg.dat');
