@@ -44,9 +44,8 @@ ArVentas:taVentas;
 ArVentasHistorico:taVentasHistorico;
 
 
-
-
 {----------------------------------------Modulos----------------------------------------------------}
+
 
 procedure LeerVentasHistorico (var ar:taVentasHistorico; var rec:trVentasHistorico; var fin:boolean);
 	begin
@@ -69,7 +68,9 @@ procedure LeerVentas(var Ar:taVentas;var Ven:trVentas;var fin:boolean);
 	read(Ar,Ven);
 	end;
 
+
 {---------------------PUNTO 1--------------------}
+
 
 procedure MostrarTabla(var ArV:taVentas; var ArS:taSucursal);
 
@@ -147,6 +148,7 @@ begin
 	 close(ArV);
 end;
 
+
 {------------PUNTO 2-------------------}
 
 
@@ -191,9 +193,6 @@ Begin
 	close(arVentas);
 	close(arTransformarVentas);
 end;
-
-
-
 
 procedure Merge (var arTransformarVentas:taVentasHistorico; var arVentasHistorico:taVentasHistorico; var arHistoricoAux:taVentasHistorico);
 
@@ -268,7 +267,6 @@ begin
 	end;
 
 
-
 procedure ActualizoHistorico(var arVentasHistorico:taVentasHistorico;var arHistoricoAux:taVentasHistorico);
 
 var
@@ -289,8 +287,6 @@ begin
 end;
 
 
-
-
 procedure Actualizar (var ArVentasHistorico:taVentasHistorico; var ArVentas:taVentas);
 
 Var
@@ -305,7 +301,11 @@ Begin
 	Merge(arTransformarVentas,arVentasHistorico,ArHistoricoAux);
 	ActualizoHistorico(arVentasHistorico,arHistoricoAux);
 end;
+
+
 {-----------------------------------------PUNTO 3-----------------------------------------------------------------------}
+
+
 procedure Punto3;
 
 Const
@@ -336,7 +336,7 @@ procedure LeerClientes(var Ar:taClientes;var Cli:trClientes;var fin:boolean);
 	read(Ar,Cli);
 	end;
 	
-	
+
 procedure GenerarTotCli (var ArCli:taClientes; var ArTotCli:text);
 
 Type
@@ -430,6 +430,7 @@ Assign(ArCli,'C:\Clientes.dat');
 Assign(ArTotCli,'C:\TotCli.txt');		
 GenerarTotCli(ArCli, ArTotCli);
 End;
+
 {-----------------------------------------------Punto 4--------------------------------------------------------------------------------}
 
 Procedure LecturaAdelantada(var Archivo:taSucursal;var Registro:trSucursal ;var Fin:boolean);
@@ -467,6 +468,7 @@ Procedure ActualizarArchSucMun;
                             end;
 
 {-----------------------------------Programa Principal----------------------------------------------}
+
 begin
 	Assign(ArSuc,'C:\SucursalesArg.dat');
 	Assign(ArVentas,'C:\VentasArg2015.dat');
