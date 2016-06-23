@@ -13,8 +13,8 @@ program CargarSucArg;
 	
 	var
 	
-	ArchSucMundo:taSucursalesArg;
-	RegSucMundo:trSucursalesArg;
+	ArchSucMun:taSucursalesArg;
+	RegSucMun:trSucursalesArg;
 		aNum_Sucursal:word;
 		aNombre:string[30];
 		aPais:string[50];
@@ -24,8 +24,8 @@ program CargarSucArg;
 	
 	begin
 	
-	assign(ArchSucMundo,'C:\TP\sucmundo.dat');
-	rewrite(archSucMundo);
+	assign(ArchSucMun,'C:\TP\archsucmun.dat');
+	rewrite(archSucMun);
 	writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
 	readln(opcion);
 	while (opcion <> 0) do
@@ -40,7 +40,7 @@ program CargarSucArg;
 		readln(aDireccion);
 		writeln('Ingrese Telefono');
 		readln(aTelefono);
-		with regsucmundo do
+		with regsucmun do
 		begin
 			Num_Sucursal:= aNum_Sucursal;
 			Nombre:=aNombre;
@@ -48,10 +48,10 @@ program CargarSucArg;
 			Direccion:=aDireccion;
 			Telefono:=aTelefono
 		end;
-		write(archsucmundo,regsucmundo);
+		write(archsucmun,regsucmun);
 		writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
                 readln(opcion);
 
 	end;
-	close(archsucmundo);
+	close(archsucmun);
 	end.
