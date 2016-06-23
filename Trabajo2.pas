@@ -295,8 +295,8 @@ Var
 	ArHistoricoAux:taVentasHistorico;
 
 Begin
-	Assign(arTransformarVentas,'C:\TransformarVentas.dat');
-	Assign(arHistoricoAux,'C:\HistoricoAuxiliar.dat');
+	Assign(arTransformarVentas,'C:\TP\TransformarVentas.dat');
+	Assign(arHistoricoAux,'C:\TP\HistoricoAuxiliar.dat');
 	TransformarVentas(arVentas,arTransformarVentas);
 	Merge(arTransformarVentas,arVentasHistorico,ArHistoricoAux);
 	ActualizoHistorico(arVentasHistorico,arHistoricoAux);
@@ -306,7 +306,7 @@ end;
 {-----------------------------------------PUNTO 3-----------------------------------------------------------------------}
 
 
-procedure Punto3;
+procedure Clientes;
 
 Const
 tamProvLoca = 50;
@@ -426,56 +426,79 @@ End;
 
 
 Begin
-Assign(ArCli,'C:\Clientes.dat');
-Assign(ArTotCli,'C:\TotCli.txt');		
+Assign(ArCli,'C:\TP\Clientes.dat');
+Assign(ArTotCli,'C:\TP\TotCli.txt');		
 GenerarTotCli(ArCli, ArTotCli);
 End;
 
 {-----------------------------------------------Punto 4--------------------------------------------------------------------------------}
 
-Procedure LecturaAdelantada(var Archivo:taSucursal;var Registro:trSucursal ;var Fin:boolean);
 	
-	Begin
-		Fin:=(EOF(Archivo));
-		if not fin then  read (Archivo,Registro);
-	End;
-	
-Procedure ActualizarArchSucMun;
+Procedure ActualizarArchSucMun(var ArchSucArg:taSucursal);
 
 	 Var
-	 	RegSucMun,RegSucArg:trSucursal;
-	 	Fin:boolean;
-	 	ArchSucMun,ArchSucArg: taSucursal;
+	 	RegSucMun,RegSucArg,RegSucAux:trSucursal;
+	 	FinMun,FinArg:boolean;
+	 	ArchSucMun,ArchSucAux: taSucursal;
 
-	 Begin
-	 	assign(archSucMun,'c:\SucMun.dat');
-	 	assign(ArchSucArg,'c\SucursalesArg.dat');
-		reset(ArchSucArg);
-		rewrite(archSucMun);
+	 Procedure PasarAuxASucMun(var ArchSucAux:taSucursal;var ArchSucMun:taSucursal;var RegSucAux:trSucursal;var RegSucMun:trSucursal);
 
-		while not (eof(archSucMun)) do
-			Begin
-				read(archSucMun,RegSucMun)
+	 begin
+	 	reset(ArchSucAux);
+	 	rewrite(ArchSucMun);
+	 	read(ArchSucAux,RegSucAux);
+	 	while not eof(ArchSucAux) do
+	 		begin
+	 		write (ArchSucMun,RegSucAux);
+	 		read(ArchSucAux,RegSucAux);
+	 		end;
+	 	close(ArchSucAux);
+	 	close(ArchSucMun);
+	 end;
+
+
+Begin
+ 	assign(archSucMun,'C:\TP\SucMun.dat');
+ 	assign(ArchSucAux,'C:\TP\SucMunAuxiliar');
+	reset(ArchSucArg);
+	reset(archSucMun);
+	rewrite(ArchSucAux);
+	LeerSuc(ArchSucMun,RegSucMun,FinMun);
+	LeerSuc(ArchSucArg,RegSucArg,FinArg);
+	while not FinArg and not FinMun do
+		if (RegSucMun.Num_Suc<RegSucArg.Num_Suc) then
+			begin
+				write(ArchSucAux,RegSucMun);
+				LeerSuc(ArchSucMun,RegSucMun,FinMun);
+			end
+		else begin
+				write(ArchSucAux,RegSucArg);
+				LeerSuc(ArchSucArg,RegSucArg,FinArg);
 			end;
-		LecturaAdelantada(ArchSucArg,RegSucArg,Fin);
-		while not fin do
-			Begin
-				write(archSucMun,RegSucArg);
-				LecturaAdelantada(ArchSucArg,RegSucArg,Fin)
-			end;
-		close(archSucMun);
-		close(archSucArg);
-                            end;
+	while not FinArg do
+		begin
+			write(ArchSucAux,RegSucArg);
+			LeerSuc(ArchSucArg,RegSucArg,FinArg);
+		end;
+	while not FinMun do
+		begin
+			write(ArchSucAux,RegSucMun);
+			LeerSuc(ArchSucMun,RegSucMun,FinMun);
+		end;
+	close(archSucMun);
+	close(archSucArg);
+	PasarAuxASucMun(ArchSucAux,ArchSucMun,RegSucAux,RegSucMun);
+   end;
 
 {-----------------------------------Programa Principal----------------------------------------------}
 
 begin
-	Assign(ArSuc,'C:\SucursalesArg.dat');
-	Assign(ArVentas,'C:\VentasArg2015.dat');
-	Assign(ArVentasHistorico,'C:\VentasHistoricas.dat');
+	Assign(ArSuc,'C:\TP\SucursalesArg.dat');
+	Assign(ArVentas,'C:\TP\VentasArg2015.dat');
+	Assign(ArVentasHistorico,'C:\TP\VentasHistoricas.dat');
 	MostrarTabla(ArVentas,ArSuc);
 	Actualizar(ArVentasHistorico,ArVentas);
-	Punto3;
-	ActualizarArchSucMun;
+	Clientes;
+	ActualizarArchSucMun(ArSuc);
 	readln();
 end.
