@@ -38,9 +38,9 @@ Type
 
 Var
 
-	avHist:taVentasHist;
-	aVen:taVentas;
-	asArg:taSucursalesArg;
+	ArVentasHistorico:taVentasHist;
+	ArVentas:taVentas;
+	ArSuc:taSucursalesArg;
 	aClie:taClientes;
 	opcion:integer;
 	vCargados:tvCargados;
@@ -141,9 +141,9 @@ procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
 	
 	var
 	
-	ArchSucMundo:taSucursalesArg;
+	ArchSucMun:taSucursalesArg;
 	NumeroUltimaSuc:word;
-	RegSucMundo:trSucursalesArg;
+	RegSucMun:trSucursalesArg;
 	auxreg:trSucursalesArg;
 	opcion:byte;
 		aNum_Sucursal:word;
@@ -154,12 +154,12 @@ procedure CargarSucArg(var arch:taSucursalesArg; var vec:tvCargados);
 	
 	begin
 	
-	assign(ArchSucMundo,'C:\TP\SucMundo.dat');
-	reset(archSucMundo);
-	while not eof do
-		read(ArchSucMundo,RegSucMundo);
-	NumeroUltimaSuc:= RegSucMundo.Num_Sucursal ;
-	close(ArchSucMundo);
+	assign(ArchSucMun,'C:\TP\archsucmun.dat');
+	reset(archSucMun);
+	while not eof(archSucMun) do
+		read(ArchSucMun,RegSucMun);
+	NumeroUltimaSuc:= RegSucMun.Num_Sucursal ;
+	close(ArchSucMun);
 	rewrite(arch);
 	writeln('Ingrese 1 para agregar nuevos registros, 0 para salir');
 	readln(opcion);
@@ -290,10 +290,10 @@ i:cantArch;
 
 begin
 
-	Assign(avHist,'C:\TP\VentasHist.dat');
-	Assign(aVen,'C:\TP\Ventas.dat');
+	Assign(ArSuc,'C:\TP\SucursalesArg.dat');
+	Assign(ArVentas,'C:\TP\VentasArg2015.dat');
+	Assign(ArVentasHistorico,'C:\TP\VentasHistoricas.dat');
 	Assign(aClie,'C:\TP\Clientes.dat');
-	Assign(asArg,'C:\TP\SucursalesArg.dat');
 	inivec(vCargados);
 	repeat
 		begin
@@ -303,12 +303,13 @@ begin
 		writeln();
 		readln(opcion);
 		case opcion of
-			1:CargarVentasHist(avHist,vCargados);
-			2:CargarSucArg(asArg,vCargados);
+			1:CargarVentasHist(arVentasHistorico,vCargados);
+			2:CargarSucArg(ArSuc,vCargados);
 			3:CargarClientes(aClie,vCargados);
-			4:CargarVentas(aVen,vCargados);
+			4:CargarVentas(ArVentas,vCargados);
 			5:MostrarCargados(vCargados);
 		end;
 		end;
 		until opcion = 0;
 end.
+
