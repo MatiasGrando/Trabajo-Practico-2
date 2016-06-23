@@ -1,4 +1,4 @@
-program Empresa_Multinacional_OJs;{Nota: Cambiar Nombre}
+program Empresa_Multinacional;
 
 Const
 tamNombre = 30;
@@ -8,7 +8,7 @@ Type
 	tMes=(Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic);
 
 	trVentas= record
-		Fecha:string[8];{AAAAMMDD}
+		Fecha:string[8];
 		Num_Cliente:word;
 		Sucursal:word;
 		Articulo:longword;
@@ -39,8 +39,8 @@ Type
 
 Var
 
-ArSuc:taSucursal;{80 Ordenado por Num_Suc (ascendente), existe un reg para cada Num_Suc}
-ArVentas:taVentas;{aprox 8000 Está ordenado en forma ascendente por Sucursal y Fecha}
+ArSuc:taSucursal;
+ArVentas:taVentas;
 ArVentasHistorico:taVentasHistorico;
 
 
@@ -55,14 +55,14 @@ procedure LeerVentasHistorico (var ar:taVentasHistorico; var rec:trVentasHistori
 	read(ar,rec);
 	end;
 
-procedure LeerSuc(var Ar:taSucursal;var Suc:trSucursal;var fin:boolean);{Lectura adelantada de sucursal}
+procedure LeerSuc(var Ar:taSucursal;var Suc:trSucursal;var fin:boolean);
 	begin
 	fin:=eof(Ar);
 	if not fin then
 	read(Ar,Suc);
 	end;
 
-procedure LeerVentas(var Ar:taVentas;var Ven:trVentas;var fin:boolean);{Lectura adelantada de ventas}
+procedure LeerVentas(var Ar:taVentas;var Ven:trVentas;var fin:boolean);
 	begin
 	fin:=eof(Ar);
 	if not fin then
@@ -71,7 +71,7 @@ procedure LeerVentas(var Ar:taVentas;var Ven:trVentas;var fin:boolean);{Lectura 
 
 {---------------------PUNTO 1--------------------}
 
-procedure MostrarTabla(var ArV:taVentas; var ArS:taSucursal);{Arma la tabla}
+procedure MostrarTabla(var ArV:taVentas; var ArS:taSucursal);
 
 var
 i:byte;
@@ -79,7 +79,7 @@ j:tMes;
 fin:boolean;
 Suc:trSucursal;
 
-	procedure corteControl(var Ar:taVentas;Suc:trSucursal);{Corte de control local}
+	procedure corteControl(var Ar:taVentas;Suc:trSucursal);
 	Type
 	tvVentasMes= array[1..12] of word;
 	var
@@ -102,7 +102,7 @@ Suc:trSucursal;
 	write(' ');
 	while not fin and (Ven.Sucursal = Suc.Num_Suc) do
 	begin
-		MesN:=copy(Ven.Fecha,5,2); {Busco la fecha en el registro de venta y la convierte a numero}
+		MesN:=copy(Ven.Fecha,5,2);
 		val(MesN,Mes,cod);
 		vMes[Mes]:= vMes[Mes] + Ven.Cantidad;
 		LeerVentas(ArV,Ven,fin)
@@ -305,7 +305,7 @@ Begin
 	Merge(arTransformarVentas,arVentasHistorico,ArHistoricoAux);
 	ActualizoHistorico(arVentasHistorico,arHistoricoAux);
 end;
-{--------------------------PUNTO 3----------------}
+{-----------------------------------------PUNTO 3-----------------------------------------------------------------------}
 procedure Punto3;
 
 Const
@@ -430,12 +430,8 @@ Assign(ArCli,'C:\Clientes.dat');
 Assign(ArTotCli,'C:\TotCli.txt');		
 GenerarTotCli(ArCli, ArTotCli);
 End;
-{-----------------------------------------------4--------------------------------------------------------------------------------)
-actualizar el archivo SucMundo.dat
- insertando las sucursales argentinas. El archivo tiene el mismo formato de registro que el archivo SucursalesArg.
- El archivo actualizado debe quedar con el mismo orden que sucmundo
-Asimo que archsucarg esta ordenado por num de suc, y que el arch suc mundo tmb, al hacer la carga de sucursales argentinas, el nº seria N+1 donde
-N es el num de suc del ultimo registro del arch suc mun}
+{-----------------------------------------------Punto 4--------------------------------------------------------------------------------}
+
 Procedure LecturaAdelantada(var Archivo:taSucursal;var Registro:trSucursal ;var Fin:boolean);
 	
 	Begin
