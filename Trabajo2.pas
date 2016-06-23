@@ -1,4 +1,4 @@
-program asdasd;{Nota: Cambiar Nombre}
+program Empresa_Multinacional_OJs;{Nota: Cambiar Nombre}
 
 Const
 tamNombre = 30;
