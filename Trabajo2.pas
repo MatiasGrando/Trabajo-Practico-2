@@ -111,7 +111,7 @@ Suc:trSucursal;
 	for i:=1 to 12 do
 		begin
 		str(vMes[i],aux);
-		write(aux+' ');
+		write(aux+'   ');
 		end;
 	writeln();
 	end;
@@ -320,7 +320,7 @@ TrClientes= record
 		Localidad:String[50];
 		Direccion:String[50];
 	end;
-	
+
 TaClientes = file of trClientes;
 
 Var
@@ -335,7 +335,7 @@ procedure LeerClientes(var Ar:taClientes;var Cli:trClientes;var fin:boolean);
 	if not fin then
 	read(Ar,Cli);
 	end;
-	
+
 
 procedure GenerarTotCli (var ArCli:taClientes; var ArTotCli:text);
 
@@ -353,7 +353,7 @@ ProvAnt:Cad50;
 LocaAnt:Cad50;
 
 	Procedure GuardaProvincia(var ArTotCli:text; var ProvAnt:Cad50; var ContProv:longint; Clientes:TrClientes);
-	
+
 	Var
 	i:byte;
 	Begin
@@ -384,7 +384,7 @@ LocaAnt:Cad50;
 	Writeln(ArTotCli, ContClien);
 	ContClien:=0;
 	End;
-	
+
 	Procedure CargaTotCli(var ArTotCli:Text; var Clientes:TrClientes; var ContProv, ContLoca, ContClien:longint; var primero:boolean; var ProvAnt, LocaAnt:Cad50);
 	Begin
 	If Primero then
@@ -394,7 +394,7 @@ LocaAnt:Cad50;
 		LocaAnt:=Clientes.Localidad;
 		End;
 	If ProvAnt<>Clientes.Provincia then
-		Begin 
+		Begin
 		GuardaLocalidad(ArTotCli, LocaAnt, ContLoca, Clientes);
 		GuardaProvincia(ArTotCli, ProvAnt, ContProv, Clientes);
 		End
@@ -427,13 +427,13 @@ End;
 
 Begin
 Assign(ArCli,'C:\TP\Clientes.dat');
-Assign(ArTotCli,'C:\TP\TotCli.txt');		
+Assign(ArTotCli,'C:\TP\TotCli.txt');
 GenerarTotCli(ArCli, ArTotCli);
 End;
 
 {-----------------------------------------------Punto 4--------------------------------------------------------------------------------}
 
-	
+
 Procedure ActualizarArchSucMun(var ArchSucArg:taSucursal);
 
 	 Var
@@ -458,7 +458,7 @@ Procedure ActualizarArchSucMun(var ArchSucArg:taSucursal);
 
 
 Begin
- 	assign(archSucMun,'C:\TP\SucMun.dat');
+ 	assign(archSucMun,'C:\TP\ArchSucMun.dat');
  	assign(ArchSucAux,'C:\TP\SucMunAuxiliar');
 	reset(ArchSucArg);
 	reset(archSucMun);
@@ -499,6 +499,7 @@ begin
 	MostrarTabla(ArVentas,ArSuc);
 	Actualizar(ArVentasHistorico,ArVentas);
 	Clientes;
-	ActualizarArchSucMun(ArSuc);
+        ActualizarArchSucMun(ArSuc);
 	readln();
 end.
+
