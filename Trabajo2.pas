@@ -101,17 +101,19 @@ Suc:trSucursal;
 	write(Suc.Nombre);
 	for i:=1 to (tamNombre  - length(Suc.Nombre)) do
 	write(' ');
-	while not fin and (Ven.Sucursal = Suc.Num_Suc) do
-	begin
-		MesN:=copy(Ven.Fecha,5,2);
-		val(MesN,Mes,cod);
-		vMes[Mes]:= vMes[Mes] + Ven.Cantidad;
-		LeerVentas(ArV,Ven,fin)
-	end;
+        repeat
+          if (Ven.Sucursal = Suc.Num_Suc) then
+                  begin
+		        MesN:=copy(Ven.Fecha,5,2);
+                        val(MesN,Mes,cod);
+                        vMes[Mes]:=Ven.Cantidad;
+                end;
+          LeerVentas(ArV,Ven,fin);
+        until fin;
 	for i:=1 to 12 do
 		begin
 		str(vMes[i],aux);
-		write(aux+'   ');
+		write(aux,'   ');
 		end;
 	writeln();
 	end;
@@ -502,4 +504,5 @@ begin
         ActualizarArchSucMun(ArSuc);
 	readln();
 end.
+
 
